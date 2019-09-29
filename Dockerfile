@@ -13,10 +13,10 @@ COPY mix.lock .
 
 RUN mix deps.get
 RUN mix deps.compile
-RUN mix compile
 
 COPY . /app
-RUN mix compile && npm install && cd -
+
+RUN mix compile
 
 EXPOSE 4000
 
