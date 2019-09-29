@@ -14,4 +14,4 @@ RUN mix deps.compile
 COPY . /app
 RUN mix compile && cd -
 
-CMD ["sh", "-c", "mix do ecto.create, ecto.migrate; mix phx.server --no-halt"]
+CMD ["-y", "sh", "-c", "mix do ecto.create, ecto.migrate; mix phx.server --no-halt"]
