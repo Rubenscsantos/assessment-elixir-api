@@ -25,5 +25,6 @@ RUN mix compile \
   && cd -
 
 EXPOSE 4000
+EXPOSE 5432
 
 CMD ["sh", "-c", "mix do local.hex --force, ecto.create, ecto.migrate; mix phx.server --no-halt"]
