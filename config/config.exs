@@ -17,6 +17,13 @@ config :movie_api, MovieApiWeb.Endpoint,
   render_errors: [view: MovieApiWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: MovieApi.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :movie_api, MovieApi.Repo,
+  username: System.get_env("DATABASE_USER") || "postgres",
+  password: System.get_env("DATABASE_PASSWORD") || "postgres",
+  database: System.get_env("DATABASE_NAME") || "db",
+  hostname: System.get_env("DATABASE_HOST") || "localhost",
+  port: (System.get_env("DATABASE_PORT") || "5432") |> String.to_integer()
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
