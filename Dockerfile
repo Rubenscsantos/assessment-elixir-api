@@ -21,7 +21,6 @@ COPY . /app
 RUN mix compile \
   && assets \
   && npm install \
-  && chmod -R 0777 node_modules \
   && cd -
 
 EXPOSE 4000
