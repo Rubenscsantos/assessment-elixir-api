@@ -1,8 +1,9 @@
 FROM elixir:1.8.2-alpine
 
-# RUN mix do local.hex --force, local.rebar --force
-
 WORKDIR /app
+
+RUN mix local.hex --force
+RUN mix local.rebar --force
 
 COPY mix.exs .
 COPY mix.lock .
@@ -15,4 +16,4 @@ RUN mix compile && cd -
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "mix do local.hex --force, local.rebar --force, ecto.create, ecto.migrate; mix phx.server --no-halt"]
+CMD ["sh", "-c", "ecto.create, ecto.migrate; mix phx.server --no-halt"]
