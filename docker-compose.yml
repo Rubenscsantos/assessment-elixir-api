@@ -1,28 +1,22 @@
-version: '3'
+version: "3.7"
+
 services:
-  web:
-    build:
-      context: .
-
-    environment:
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=db
-      - DATABASE_HOST=toxiproxy
-      - DATABASE_PORT=5432
-    depends_on:
-      - toxiproxy
-
-
-  toxiproxy:
-    image: shopify/toxiproxy:2.1.3
-    command: ['-host=0.0.0.0', '-config=/toxiproxy.json']
+  postgres:
+    image: postgres:11.3-alpine
+    container_name: movie_api_postgres
+    restart: always
+    ports:
+      - 15432:5432
     volumes:
-      - './toxiproxy.json:/toxiproxy.json'
+      - ./docker/data/postgres:/var/lib/postgres/data
+  app:
+    build:
+      context: ./docker/dev
+      dockerfile: Dockerfile
+    container_name: movie_api_app
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/workspace
     depends_on:
       - postgres
-
-  postgres:
-    image: postgres:9.6-alpine
-    volumes:
-      - './docker/sql:/docker-entrypoint-initdb.d'

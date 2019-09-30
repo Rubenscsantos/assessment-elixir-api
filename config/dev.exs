@@ -30,6 +30,15 @@ config :movie_api, MovieApiWeb.Endpoint,
     ]
   ]
 
+  config :movie_api, MovieApi.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "postgres", # this hostname will be resolved within network
+  # created by docker compose
+  port: 5432, # port is changed - because 15432 is visible ONLY on host
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+  
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
